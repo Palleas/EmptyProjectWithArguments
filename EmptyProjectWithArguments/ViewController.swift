@@ -10,9 +10,24 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var debug: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let arguments = ProcessInfo.processInfo.arguments.joined(separator: "\n\n")
+
+        let envVars = ProcessInfo.processInfo.environment
+            .map { "* \($0): \($1)" }
+            .joined(separator: "\n\n")
+
+        let content = """
+This is content of the arguments:
+\(arguments)
+
+This is the environment variables:
+\(envVars)
+"""
+
+        debug.text = content
     }
 
     override func didReceiveMemoryWarning() {
